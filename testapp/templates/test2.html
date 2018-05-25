@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="/static/bootstrap_table/bootstrap-table.min.css"/>
+    <script type="text/javascript" src="/static/bootstrap_table/jquery.min.js"></script>
+
+    <script type="text/javascript" src="/static/bootstrap_table/bootstrap-table.js"></script>
+    <script type="text/javascript" src="/static/bootstrap_table/bootstrap-table-zh-CN.js"></script>
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/bootstrap-select.css">
+
+     <link href="/static/zTree_v3/css/demo.css" rel="stylesheet" />
+    <link href="/static/zTree_v3/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
+
+    <script src="/static/zTree_v3/js/jquery.ztree.core.js"></script>
+    <script language="JavaScript">
+
+
+
+
+
+
+        //页面加载后，将zNodes数据放到setting设置的树结构中，显示在html中id=treeDemo的容器中。
+         $(document).ready(function () {
+var treeData=null;
+              $.ajax({
+	url: "/get_treedata",
+    type:"get",
+    cache:false,    //控制是否缓存数据（post请求默认false，而get请求会为true,容易造成页面数据缓存问题）
+	async:false,    //控制同步还是异步
+	data: {},
+	dataType: "json",
+	beforeSend: function(){
+    // $("#deleteWidgetConfirm_background")[0].style.display = 'block';
+    },
+
+	success:function(data){
+		treeData=data;
+		//alert(data);
+
+	},
+	error:function(textStatus, errorThrown){
+		  alert('error');
+	}
+});
+
+$.each(treeData.rows, function(i,item) {
+//alert(item.name)
+
+});
+             zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, treeData.rows);
+         });
+  </script>
+</head>
+<body>
+
+<table style="width:80%">
+    <tr>
+        <td valign="top">
+            =========单击显示明细
+            <ul id="treeDemo" class="ztree" ></ul>
+
+        </td>
+        <td align="left">
+            <table id="bootstraptable" style="font-size:12px"
+                                       class="table table-bordered table-striped table-hover" role="grid"
+                                       aria-describedby="example1_info"
+                                       data-show-refresh="true"
+                                       data-show-columns="true"
+                                       data-show-export="true"
+                                       data-detail-view="true">
+                                </table>
+
+        </td>
+    </tr>
+
+</table>
+
+
+ <script type="text/javascript" src="/static/sourcejs/test2.js"></script>
+</body>
+</html>
